@@ -4,6 +4,8 @@ public class CardEater : MouseInteractable
 {
     public override void MouseHoverAll()
     {
+        Debug.Log("GMOUSE " + G.Mouse);
+        Debug.Log("HOLDING " + G.Mouse.holding);
         if (G.Mouse.holding != null)
         {
             // some hover effect like shake

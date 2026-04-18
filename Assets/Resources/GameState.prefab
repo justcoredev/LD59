@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1057566174503954024}
   - component: {fileID: 7049785123587559057}
   - component: {fileID: 8888918156434540563}
+  - component: {fileID: -2639871671792883230}
+  - component: {fileID: 3403524578536166486}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -73,3 +75,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hover: {fileID: 0}
   holding: {fileID: 0}
+--- !u!114 &-2639871671792883230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048709351592611277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400323d1fefb5654e9656a6108e24c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3403524578536166486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048709351592611277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25178bf1176892c41989b56e9f1efdc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueContextPrefab: {fileID: 5494707638562099683, guid: 2b23e3b1f1523d04c8f062623a864565, type: 3}

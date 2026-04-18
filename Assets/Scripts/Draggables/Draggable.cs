@@ -1,33 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSceneStartListener
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(TargetJoint2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+public class Draggable : MouseInteractable, IOnCleanupListener
 {
     public static List<Draggable> draggables;
 
-    public float shadowOpacity = 0.5f;
-    public float shadowOffset = 0.1f;
-    public int topSortingOrder = 100;
-    public int afterTopSortingOrder = 90;
-
+    public float shadowOpacity = 0.7f;
+    public float shadowOffset = 0.12f;
     public bool isDragging;
+    [HideInInspector] public Vector3 worldMousePosition;
+
+    Vector3 localClickPoint;
 
     SpriteRenderer spriteRenderer;
     SpriteRenderer shadowRenderer;
 
-    public Vector3 worldMousePosition;
-
-    Vector3 localClickPoint;
-
-    public void OnFirstSceneAwake()
+    Rigidbody2D rb;
+    TargetJoint2D joint;
+    
+    public void Awake()
     {
-        Debug.Log("fsa");
-        draggables = new List<Draggable>();
-    }
+        if (draggables == null)
+            draggables = new List<Draggable>();
 
-    public void OnFirstSceneStart()
-    {
-        Debug.Log("fss");
         draggables.Add(this);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -44,18 +42,36 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
         shadowRenderer.color = new Color(0, 0, 0, shadowOpacity);
         shadowRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
         shadowRenderer.enabled = false;
+
+        InitPhysics();
+    }
+
+    void Reset() => InitPhysics();
+
+    void InitPhysics()
+    {
+        joint = GetComponent<TargetJoint2D>();
+        joint.enabled = false;
+        joint.frequency = 10f;
+
+        rb = GetComponent<Rigidbody2D>();
+        rb.linearDamping = 26.0f;
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
+    }
+
+    public void OnCleanup()
+    {
+        draggables = new List<Draggable>();
     }
 
     void Update()
     {
-        Debug.Log(draggables.Count);
-
         worldMousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
         if (isDragging)
         {
-            Vector3 worldOffset = transform.TransformVector(localClickPoint);
-            transform.position = worldMousePosition - worldOffset;
+            joint.target = worldMousePosition;
         }
     }
 
@@ -63,6 +79,7 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
     {
         isDragging = true;
         shadowRenderer.enabled = true;
+        joint.enabled = true;
 
         // Make this draggable appear on top every other draggable
 
@@ -84,6 +101,7 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
         // Local point
 
         localClickPoint = transform.InverseTransformPoint(worldMousePosition);
+        joint.anchor = localClickPoint;
     }
 
     public override void MouseUp()
@@ -109,6 +127,7 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
         }
 
         shadowRenderer.enabled = false;
+        joint.enabled = false;
         isDragging = false;
     }
 
@@ -116,5 +135,10 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
     {
         if (draggables != null)
             draggables.Remove(this);
+    }
+
+    public void ApplyForceImpulse(Vector2 direction, float force)
+    {
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 }
