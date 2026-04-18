@@ -111,4 +111,10 @@ public class Draggable : MouseInteractable, IFirstSceneAwakeListener, IOnFirstSc
         shadowRenderer.enabled = false;
         isDragging = false;
     }
+
+    void OnDestroy()
+    {
+        if (draggables != null)
+            draggables.Remove(this);
+    }
 }

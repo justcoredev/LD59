@@ -1,17 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseManager : GlobalService
 {
-    public MouseInteractable top;
+    public MouseInteractable hover;
     public MouseInteractable holding;
 
     void Update()
     {
-        top = null;
+        hover = null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.Log(ray.origin + " " + ray.direction);
         RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+        List<MouseInteractable> allHitInteractables = new List<MouseInteractable>();
 
         // Find top
 
@@ -19,35 +20,46 @@ public class MouseManager : GlobalService
 
         foreach (var hit in hits)
         {
+            var interactable = hit.collider.GetComponent<MouseInteractable>();
+            allHitInteractables.Add(interactable);
+
+            // Hover top only (requires sr for ordering) 
             var sr = hit.collider.GetComponent<SpriteRenderer>();
             if (sr == null) continue;
 
             if (sr.sortingOrder > bestOrder)
             {
                 bestOrder = sr.sortingOrder;
-                top = hit.collider.GetComponent<MouseInteractable>();
+                hover = interactable;
             }
         }
 
-        if (top != null)
+        foreach(var i in allHitInteractables)
+            i.MouseHoverAll();
+
+        if (hover != null)
         {
             // Hover
+            hover.MouseHover();
 
             // Down
             if (Input.GetMouseButtonDown(0))
             {
-                top.MouseDown();
-                holding = top;
+                hover.MouseDown();
+                holding = hover;
             }
         }
 
-        if (holding != null)
+        if (Input.GetMouseButtonUp(0))
         {
-            // Up
-            if (Input.GetMouseButtonUp(0))
+            foreach(var i in allHitInteractables)
+                i.MouseUpAll();
+
+            if (holding != null)
             {
                 holding.MouseUp();
+                holding = null;
             }
-        }
+        }        
     }
 }
