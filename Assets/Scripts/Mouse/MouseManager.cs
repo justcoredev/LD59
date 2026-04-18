@@ -21,6 +21,8 @@ public class MouseManager : GlobalService
         foreach (var hit in hits)
         {
             var interactable = hit.collider.GetComponent<MouseInteractable>();
+            if (interactable == null) continue;
+
             allHitInteractables.Add(interactable);
 
             // Hover top only (requires sr for ordering) 

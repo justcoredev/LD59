@@ -14,7 +14,7 @@ public class CardEater : MouseInteractable
 
     public override void MouseUpAll()
     {
-        if (G.Mouse.holding != null)
+        if (G.Mouse.holding != null && G.Mouse.holding is Draggable)
         {
             // EAT THE CARD
             Destroy(G.Mouse.holding.gameObject);

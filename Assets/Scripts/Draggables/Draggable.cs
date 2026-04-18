@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -21,7 +22,7 @@ public class Draggable : MouseInteractable, IOnCleanupListener
     Rigidbody2D rb;
     TargetJoint2D joint;
     
-    public void Awake()
+    private void Awake()
     {
         if (draggables == null)
             draggables = new List<Draggable>();
@@ -40,10 +41,15 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         shadowRenderer = shadowObj.AddComponent<SpriteRenderer>();
         shadowRenderer.sprite = spriteRenderer.sprite;
         shadowRenderer.color = new Color(0, 0, 0, shadowOpacity);
-        shadowRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+        shadowRenderer.sortingOrder = spriteRenderer.sortingOrder - 2;
         shadowRenderer.enabled = false;
 
         InitPhysics();
+    }
+
+    public void Start()
+    {
+        AppearOnTop();
     }
 
     void Reset() => InitPhysics();
@@ -83,20 +89,7 @@ public class Draggable : MouseInteractable, IOnCleanupListener
 
         // Make this draggable appear on top every other draggable
 
-        int maxOrder = 0;
-
-        foreach (var draggable in draggables)
-        {
-            var sr = draggable.spriteRenderer;
-
-            if (sr.sortingOrder > maxOrder)
-            {
-                maxOrder = sr.sortingOrder;
-            }
-        }
-
-        spriteRenderer.sortingOrder = maxOrder + 2;
-        shadowRenderer.sortingOrder = maxOrder + 1;
+        AppearOnTop();
 
         // Local point
 
@@ -123,12 +116,32 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         foreach(var draggable in draggables)
         {
             draggable.spriteRenderer.sortingOrder -= minOrder;
-            draggable.shadowRenderer.sortingOrder = draggable.spriteRenderer.sortingOrder - 1;
+            if (draggable is Card card) card.SetHolesSortingOrder(draggable.spriteRenderer.sortingOrder - 1);
+            draggable.shadowRenderer.sortingOrder = draggable.spriteRenderer.sortingOrder - 2;
         }
 
         shadowRenderer.enabled = false;
         joint.enabled = false;
         isDragging = false;
+    }
+
+    void AppearOnTop()
+    {
+        int maxOrder = 0;
+
+        foreach (var draggable in draggables)
+        {
+            var sr = draggable.spriteRenderer;
+
+            if (sr.sortingOrder > maxOrder)
+            {
+                maxOrder = sr.sortingOrder;
+            }
+        }
+
+        spriteRenderer.sortingOrder = maxOrder + 3;
+        if (TryGetComponent<Card>(out var card)) card.SetHolesSortingOrder(maxOrder + 2);
+        shadowRenderer.sortingOrder = maxOrder + 1;
     }
 
     void OnDestroy()
