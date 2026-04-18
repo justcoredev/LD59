@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3029458770095359811}
   - component: {fileID: 1057566174503954024}
   - component: {fileID: 7049785123587559057}
+  - component: {fileID: 8241971927612180632}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -58,3 +59,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlesPaused: []
+--- !u!114 &8241971927612180632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048709351592611277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8b54fc619c6f640a3086878dfbe891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  top: {fileID: 0}

@@ -23,4 +23,12 @@ public class G
             if (mb is IOnFirstSceneStartListener listener)
                 listener.OnFirstSceneStart();
     }
+
+    public static void OnFirstSceneAwake()
+    {
+        var mbs = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+        foreach (var mb in mbs)
+            if (mb is IFirstSceneAwakeListener listener)
+                listener.OnFirstSceneAwake();
+    }
 }

@@ -76,6 +76,7 @@ public class Bootstrapper : MonoBehaviour
         //FindAnyObjectByType<PlayerBase>().Init();
         // --
 
+        G.OnFirstSceneAwake();
         G.OnFirstSceneStart();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
