@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8888918156434540563}
   - component: {fileID: -2639871671792883230}
   - component: {fileID: 3403524578536166486}
+  - component: {fileID: -884278542231099017}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -75,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hover: {fileID: 0}
   holding: {fileID: 0}
+  worldMousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-2639871671792883230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400323d1fefb5654e9656a6108e24c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  completed: 0
+  skip: 0
+  dialogueContextPoint: {fileID: 0}
 --- !u!114 &3403524578536166486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,3 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueContextPrefab: {fileID: 5494707638562099683, guid: 2b23e3b1f1523d04c8f062623a864565, type: 3}
+--- !u!114 &-884278542231099017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048709351592611277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915fc17873b1c047bdcd599398404c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FullscreenOverlayPrefab: {fileID: 7048129733055973183, guid: 614990c9943c355478fe9b09e0ec8e6a, type: 3}
+  image: {fileID: 0}

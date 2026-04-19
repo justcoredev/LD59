@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -17,7 +19,7 @@ public class Draggable : MouseInteractable, IOnCleanupListener
     Vector3 localClickPoint;
 
     SpriteRenderer spriteRenderer;
-    SpriteRenderer shadowRenderer;
+    List<SpriteRenderer> shadowRenderers;
 
     Rigidbody2D rb;
     TargetJoint2D joint;
@@ -33,18 +35,34 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer == null) Debug.LogError("No SpriteRenderer on this object nor on its children");
 
-        GameObject shadowObj = new GameObject("Shadow");
+        // Create shadows
+        shadowRenderers = new();
+        List<SpriteRenderer> srs = GetComponentsInChildren<SpriteRenderer>().ToList();
+        //srs.Add(GetComponent<SpriteRenderer>());
+        foreach (var sr in srs)
+        {
+            // Exception for hole renderers
+            if (sr.gameObject.GetComponent<Hole>() != null) continue;
 
-        shadowObj.transform.localScale = transform.localScale;
-        shadowObj.transform.localRotation = transform.localRotation;
-        shadowObj.transform.position = transform.position + new Vector3(1, -1) * shadowOffset;
-        shadowObj.transform.SetParent(transform);
+            GameObject shadowObj = new GameObject("Shadow");
 
-        shadowRenderer = shadowObj.AddComponent<SpriteRenderer>();
-        shadowRenderer.sprite = spriteRenderer.sprite;
-        shadowRenderer.color = new Color(0, 0, 0, shadowOpacity);
-        shadowRenderer.sortingOrder = spriteRenderer.sortingOrder - 2;
-        shadowRenderer.enabled = false;
+            shadowObj.transform.localScale = sr.transform.localScale;
+            shadowObj.transform.localRotation = sr.transform.localRotation;
+            shadowObj.transform.position = sr.transform.position + new Vector3(1, -1) * shadowOffset;
+            shadowObj.transform.SetParent(transform);
+
+            SpriteRenderer shadowRenderer = shadowObj.AddComponent<SpriteRenderer>();
+            shadowRenderer.sprite = sr.sprite;
+            shadowRenderer.color = new Color(0, 0, 0, shadowOpacity);
+
+            bool isSecondaryPart = sr != GetComponent<SpriteRenderer>();
+            shadowRenderer.sortingOrder = sr.sortingOrder - (isSecondaryPart ? 1 : 2);
+
+            shadowRenderer.enabled = false;
+
+            shadowRenderers.Add(shadowRenderer);
+        }
+
 
         InitPhysics();
     }
@@ -86,7 +104,7 @@ public class Draggable : MouseInteractable, IOnCleanupListener
     public override void MouseDown()
     {
         isDragging = true;
-        shadowRenderer.enabled = true;
+        shadowRenderers.ForEach(x => x.enabled = true);
         joint.enabled = true;
 
         // Make this draggable appear on top every other draggable
@@ -119,10 +137,11 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         {
             draggable.spriteRenderer.sortingOrder -= minOrder;
             if (draggable is Card card) card.SetHolesSortingOrder(draggable.spriteRenderer.sortingOrder - 1);
-            draggable.shadowRenderer.sortingOrder = draggable.spriteRenderer.sortingOrder - 2;
+            if (draggable is HoleMaker holeMaker) holeMaker.movingPartSpriteRenderer.sortingOrder = draggable.spriteRenderer.sortingOrder - 1;
+            draggable.shadowRenderers.ForEach(x => x.sortingOrder = draggable.spriteRenderer.sortingOrder - 2);
         }
 
-        shadowRenderer.enabled = false;
+        shadowRenderers.ForEach(x => x.enabled = false);
         joint.enabled = false;
         isDragging = false;
     }
@@ -143,7 +162,8 @@ public class Draggable : MouseInteractable, IOnCleanupListener
 
         spriteRenderer.sortingOrder = maxOrder + 3;
         if (TryGetComponent<Card>(out var card)) card.SetHolesSortingOrder(maxOrder + 2);
-        shadowRenderer.sortingOrder = maxOrder + 1;
+        if (TryGetComponent<HoleMaker>(out var holeMaker)) holeMaker.movingPartSpriteRenderer.sortingOrder = maxOrder + 2;
+        shadowRenderers.ForEach(x => x.sortingOrder = maxOrder + 1);
     }
 
     void OnDestroy()

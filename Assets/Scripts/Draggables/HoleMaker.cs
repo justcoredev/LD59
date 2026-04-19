@@ -3,15 +3,9 @@ using UnityEngine;
 public class HoleMaker : Draggable
 {
     public Transform sharpPoint;
-
-    void OnDrawGizmos()
-    {
-        if (sharpPoint != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(sharpPoint.position, 0.2f);
-        }
-    }
+    public GameObject movingPart;
+    public Transform movingPartTransform;
+    public SpriteRenderer movingPartSpriteRenderer;
 
     new void Update()
     {
@@ -28,10 +22,18 @@ public class HoleMaker : Draggable
 
     public void MakeHole()
     {
-        Debug.Log("HAAAA");
         foreach(Hole hole in G.Mouse.GetAllHolesOnPosition(sharpPoint.position))
         {
             hole.Punch();
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (sharpPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(sharpPoint.position, 0.2f);
         }
     }
 }

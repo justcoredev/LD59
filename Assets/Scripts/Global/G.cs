@@ -9,15 +9,24 @@ public class G
     public static PauseManager Pause;
     public static MouseManager Mouse;
     public static DialogueManager Dialogue;
+
+    public static FullscreenOverlay FullscreenOverlay;
+
     public static CardGiver CardGiver;
+
+    public static FullscreenOverlay Overlay;
 
     public static void Initialize(GameObject gameStateObject)
     {
         GameStateObject = gameStateObject;
+        
         Audio = GameStateObject.GetComponent<AudioManager>();
         Pause = GameStateObject.GetComponent<PauseManager>();
         Mouse = GameStateObject.GetComponent<MouseManager>();
+
         Dialogue = GameStateObject.GetComponent<DialogueManager>();
+
+        FullscreenOverlay = GameStateObject.GetComponent<FullscreenOverlay>();
     }
 
     public static void OnFirstSceneAwake()
