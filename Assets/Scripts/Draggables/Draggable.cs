@@ -30,6 +30,8 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         draggables.Add(this);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer == null) Debug.LogError("No SpriteRenderer on this object nor on its children");
 
         GameObject shadowObj = new GameObject("Shadow");
 
@@ -71,7 +73,7 @@ public class Draggable : MouseInteractable, IOnCleanupListener
         draggables = new List<Draggable>();
     }
 
-    void Update()
+    protected void Update()
     {
         worldMousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
