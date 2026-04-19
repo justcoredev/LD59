@@ -66,5 +66,8 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj",
     },
-    "dotnet.defaultSolution": "LD59.sln"
+    "dotnet.defaultSolution": "LD59.sln",
+    "cSpell.words": [
+        "Pinboard"
+    ]
 }
