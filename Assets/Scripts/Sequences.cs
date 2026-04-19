@@ -8,11 +8,11 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     public bool completed;
     public bool skip;
 
-    public Transform dialogueContextPoint;
+    public GameDialogue gameDialogue;
 
     public void OnFirstSceneStart()
     {
-        dialogueContextPoint = GameObject.Find("DialogueContextPoint").transform;
+        gameDialogue = FindAnyObjectByType<GameDialogue>();
 
         StartCoroutine(FirstSceneRoutine());
     }
@@ -30,9 +30,10 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
         completed = false;
 
         G.FullscreenOverlay.Fade(true, 0);
+        yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(G.FullscreenOverlay.Fade(false, 2.0f));
 
-        G.Dialogue.StartDialogueQuickly(new[]{"Hello! This is a test dialogue!"}, dialogueContextPoint.position);
+        gameDialogue.StartDialogue("test");
         yield return new WaitForSeconds(2.0f);
         G.CardGiver.GiveCards(3);
 

@@ -14,6 +14,7 @@ public class DialogueContext : MonoBehaviour
     public int CurrentCharacterIndex => _writer.CurrentIndex;
     public int CurrentDialogueLine { get; private set; }
     public bool controlledByInput;
+    public bool showMemo;
     public AudioClip voiceClip;
     public TMP_Text memoText;
     public Image memoBack;
@@ -50,11 +51,12 @@ public class DialogueContext : MonoBehaviour
 
     private void Update()
     {
-        continueKeyDown = Input.GetKeyDown(KeyCode.E);
+        //continueKeyDown = Input.GetKeyDown(KeyCode.E);
+        continueKeyDown = Input.GetMouseButtonDown(0);
 
         // Memo text visibility
 
-        if (!controlledByInput)
+        if (!controlledByInput || !showMemo)
         {
             memoText.color = new Color(memoText.color.r, memoText.color.g, memoText.color.b, 0);
             memoBack.color = new Color(memoBack.color.r, memoBack.color.g, memoBack.color.b, 0);

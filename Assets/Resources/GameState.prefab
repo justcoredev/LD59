@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -2639871671792883230}
   - component: {fileID: 3403524578536166486}
   - component: {fileID: -884278542231099017}
+  - component: {fileID: -5081951624155620557}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -91,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completed: 0
   skip: 0
-  dialogueContextPoint: {fileID: 0}
+  gameDialogue: {fileID: 0}
 --- !u!114 &3403524578536166486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +120,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FullscreenOverlayPrefab: {fileID: 7048129733055973183, guid: 614990c9943c355478fe9b09e0ec8e6a, type: 3}
   image: {fileID: 0}
+--- !u!114 &-5081951624155620557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048709351592611277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ccaf7dae1c7094b8acf884c53ec406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorDot: {fileID: 2800000, guid: 5783c17c75a4ad14999e10b94bd266f2, type: 3}
