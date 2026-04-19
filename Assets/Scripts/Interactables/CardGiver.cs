@@ -22,7 +22,7 @@ public class CardGiver : MonoBehaviour
                 Vector2.right + 
                 new Vector2(
                     Random.Range(-1.0f, 10.0f) * 0.05f, 
-                    Random.Range(-1.0f, 2.0f) * 0.05f), 
+                    Random.Range(-1.0f, 6.0f) * 0.05f), 
                 cardForce
             );
 

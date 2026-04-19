@@ -460,7 +460,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -90
-  m_Sprite: {fileID: -3218248262026354849, guid: f08b68daec9c5b84789aab984d59bf1a, type: 3}
+  m_Sprite: {fileID: 6829592278491043104, guid: e0fb195ec5a807942854dc1a04f24da3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 551359317}
   - component: {fileID: 551359319}
   m_Layer: 0
-  m_Name: CardDeck
+  m_Name: CardGiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 121429613359789590, guid: 894949af813762a4d978e60da8d41f68, type: 3}
-  cardForce: 150
+  cardForce: 115
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ Transform:
   m_GameObject: {fileID: 1250615918}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.16, y: 0, z: 0}
+  m_LocalPosition: {x: 1.16, y: 0, z: 0}
   m_LocalScale: {x: 1.0773673, y: 1.0773673, z: 1.0773673}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1515,7 +1515,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -80
-  m_Sprite: {fileID: 497600754102043572, guid: 63dce4bac0e1a8148aca7833cdf15d92, type: 3}
+  m_Sprite: {fileID: -2790264755731814391, guid: e0343b577822f774fa0be12da58e722a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
