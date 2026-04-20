@@ -1,22 +1,24 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class HoleMaker : Draggable
 {
+    public float punchCooldown = 0.33f;
     public Transform sharpPoint;
     public GameObject movingPart;
     public Transform movingPartTransform;
     public SpriteRenderer movingPartSpriteRenderer;
 
-    new void Update()
-    {
-        base.Update();
+    Tween tween;
+    bool canPunch = true;
 
-        if (G.Mouse.holding == this)
+    public override void MouseUp()
+    {
+        base.MouseUp();
+
+        if (canPunch)
         {
-            if (Input.GetMouseButtonDown(1)) // RMB
-            {
-                MakeHole();
-            }
+            MakeHole();
         }
     }
 
@@ -26,6 +28,12 @@ public class HoleMaker : Draggable
         {
             hole.Punch();
         }
+
+        tween?.Kill();
+        movingPartTransform.localPosition = new Vector3(0, 0.103f, 0);
+        tween = movingPartTransform.DOLocalMoveY(0.64f, punchCooldown).SetEase(Ease.OutQuad);
+        DOVirtual.DelayedCall(punchCooldown * 0.9f, () => canPunch = true);
+        canPunch = false;
     }
 
     void OnDrawGizmos()

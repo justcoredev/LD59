@@ -11,5 +11,6 @@ public class Hole : MonoBehaviour
         parentCard.values[quarterPos.x][quarterPos.y] = true;
         value = true;
         GetComponent<SpriteRenderer>().enabled = false;
+        parentCard.punchedCount++;
     }
 }

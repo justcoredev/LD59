@@ -5,6 +5,9 @@ public class ItemsGiver : MonoBehaviour
 {
     public Draggable CodeList1;
     public Draggable ManualList;
+    public Draggable ListLevel2;
+    public Draggable ListLevel3;
+    public Draggable ListLevel4;
     public Draggable HoleMaker;
 
     public void Give(Draggable draggable)

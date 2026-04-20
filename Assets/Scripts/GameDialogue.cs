@@ -22,27 +22,48 @@ public class GameDialogue : MonoBehaviour
         // https://dmullinsgames.itch.io/sacrifices-must-be-made
         {"take_paper_1", new[]
         {
-            "Good morning",
-            "Please, take your todays instructions.",
-            "We changed them for safety",
+            "Good morning.",
+            "Please, take your daily instructions.",
+            "We changed them for safety.",
+        }},
+        {"pin_paper", new[]
+        {
+            "Pin it to your board.",
         }},
         {"take_puncher", new[]
         {
-            "And of course the hole puncher.",
+            "And of course the hole-puncher.",
         }},
         {"task_1", new[]
         {
-            "Todays task is to punch the <color=red>pressure</color> data into a punch card and send it.",
-            "But, since you probably don't know how to use new code",
-            "Let me help you",
-            "Try typing <color=red>45,6</color>",
+            "Punch the <color=red>temperature</color> data into a card and send it.",
+            "Good luck. [pause]See you later."
         }},
-        {"task_2", new[]
+        {"hi_now_pressure_too", new[]
+        { // TODO polish: "i got you a present (pot with a sprout)" or smth wholesome like that.
+            "Good morning again.",
+            "Today they want you to send a card with <color=#0000cc>pressure</color> along with two cards of <color=#0000cc>temperature</color>.",
+
+        }},
+        {"see_you_later", new[]
         {
-            "Good",
-            "That was test data, so don't worry",
-            "Now you can start working.",
-            "Do not screw up"
+            "See you later.",
+        }},
+        {"cultist_into", new[]
+        {
+            "Greetings to you.",
+            "Something terrible is in making.",
+            "You shouldn't provide them information.",
+            "A wax candle melted behind you. Doesn't look like it was ever lit."
+        }},
+        {"cultist_stop_them", new[]
+        {
+            "They must be stopped."
+        }},
+        {"house", new[]
+        {
+            "My house burned down.",
+            "But it's fine."
         }},
     };
 

@@ -5,12 +5,7 @@ public class Card : Draggable
 {
     public bool[][] values = new bool[][]{};
     public Hole[] holes;
-
-    new void Update()
-    {
-        base.Update();
-        Debug.Log("f " + values[0][0]);
-    }
+    public int punchedCount;
 
     new void Start()
     {
@@ -35,12 +30,7 @@ public class Card : Draggable
 
         for (int i = 0; i < orderedHoles.Length; i++)
         {
-            Debug.Log(i + ";" + orderedHoles[i].gameObject.name);
-            Vector2Int quarterPos = new Vector2Int(
-                i / 6,
-                i % 6
-            );
-
+            Vector2Int quarterPos = new Vector2Int(i / 6, i % 6);
             orderedHoles[i].quarterPos = quarterPos;
         }
 

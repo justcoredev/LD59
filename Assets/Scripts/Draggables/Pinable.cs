@@ -30,19 +30,25 @@ public class Pinable : Draggable
             }
             else if (G.Pinboard.Pinable == null)
             {
-                sr.sprite = bigSprite;
-                transform.position = G.Pinboard.PinPoint.position;
-                transform.rotation = G.Pinboard.PinPoint.rotation;
-                G.Pinboard.Pinable = this;
-                var rb = G.Pinboard.Pinable.GetComponent<Rigidbody2D>();
-                rb.linearVelocity = Vector2.zero;
-                rb.angularVelocity = 0f;
+                Pin();
             }
         }
         else
         {
             sr.sprite = smallSprite;
         }
+    }
+
+    public void Pin()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = bigSprite;
+        transform.position = G.Pinboard.PinPoint.position;
+        transform.rotation = G.Pinboard.PinPoint.rotation;
+        G.Pinboard.Pinable = this;
+        var rb = G.Pinboard.Pinable.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 
     public bool InPinboardBounds()

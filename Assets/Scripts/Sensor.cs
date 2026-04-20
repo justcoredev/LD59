@@ -29,14 +29,12 @@ public class Sensor : MonoBehaviour
         if (activated)
         {
             currentValue = Mathf.Lerp(currentValue, desiredValue, Time.deltaTime * 5.0f);
-            valueText.text = currentValue.ToString("F1");
+            valueText.text = currentValue < 0.01 ? "" : currentValue.ToString("F1");
         }
         else
         {
-            currentValue = maxValue * 0.5f + Mathf.Sin(Time.time) * maxValue * 0.1f;
-            currentValue = Mathf.Clamp(currentValue, 0, maxValue);
-
-            valueText.text = startText;
+            currentValue = 0;
+            valueText.text = "";
         }
 
         float t = currentValue / maxValue;

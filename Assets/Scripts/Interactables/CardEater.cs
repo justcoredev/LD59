@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class CardEater : MouseInteractable
 {
     public List<string[]> requirements = new();
+    public bool AllRequirementsMet => requirements != null ? (requirements.Count == 0) : false;
 
     public override void MouseHoverAll()
     {
@@ -20,7 +22,7 @@ public class CardEater : MouseInteractable
         {
             CheckRequirements(card);
             // EAT THE CARD
-            //Destroy(card.gameObject);
+            Destroy(card.gameObject);
         }
     }
 
@@ -43,26 +45,49 @@ public class CardEater : MouseInteractable
     {
         string[] bits = CardToBits(card);
 
-        foreach(string[] req in requirements)
+        foreach (string[] req in requirements)
         {
             Debug.Log("BITS:\n" + string.Join("\n", bits));
             Debug.Log("REQ:\n" + string.Join("\n", req));
 
-            if (bits.SequenceEqual(req))
+            if (Matches(bits, req))
             {
                 requirements.Remove(req);
+                Memo.Show("code_result", 4.0f, "<color=#00cc00>Correct code.</color>");
 
                 if (requirements.Count == 0)
                 {
                     Debug.Log("ALL REQ MET - PASSED");
                     ClearRequirements();
+                    FindAnyObjectByType<ButtonSend>().Lock(false);
                 }
 
                 return;
             }
         }
 
+        Memo.Show("code_result", 4.0f, "Wrong code. Try again.");
+        DOVirtual.DelayedCall(2.0f, () => G.CardGiver.GiveCards(1));
         Debug.Log("CANT FIND THIS IN REQ - UR WRONG");
+    }
+
+    bool Matches(string[] bits, string[] req)
+    {
+        if (bits.Length != req.Length)
+            return false;
+
+        var remaining = new List<string>(req);
+
+        foreach (var b in bits)
+        {
+            int index = remaining.IndexOf(b);
+            if (index == -1)
+                return false;
+
+            remaining.RemoveAt(index); // consume match
+        }
+
+        return true;
     }
 
     public string[] CardToBits(Card card)

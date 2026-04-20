@@ -8,6 +8,8 @@ public class MeasureButton : MouseInteractable
     public bool IsLocked {get; private set;}
     SpriteRenderer sr;
 
+    public bool wasPressedOnce;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -35,6 +37,7 @@ public class MeasureButton : MouseInteractable
         Lock(true);
         Sensor.FindByID("temp").Activate();
         Sensor.FindByID("pressure").Activate();
+        wasPressedOnce = true;
         // TODO: play sound
     }
 

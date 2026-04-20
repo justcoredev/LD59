@@ -188,6 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d04f8c76427c944192aa12d8f586cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 892580117414705168}
+  id: 
 --- !u!1 &7045719868385651935
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,10 +331,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Press WASD \nto walk."
+  m_text: Unpin.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9db96c5e54ba9c1488d823639f57a7be, type: 2}
-  m_sharedMaterial: {fileID: 4968344614312934816, guid: 9db96c5e54ba9c1488d823639f57a7be, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
