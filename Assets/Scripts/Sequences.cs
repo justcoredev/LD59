@@ -1,5 +1,4 @@
 using System.Collections;
-using DG.Tweening;
 using UnityEngine;
 
 public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
@@ -29,13 +28,45 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     {
         completed = false;
 
+        G.CardEater.AddCardRequirement("000001", "110111", "010101", "000010");
+
+        // Fade
         G.FullscreenOverlay.Fade(true, 0);
         yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(G.FullscreenOverlay.Fade(false, 2.0f));
+        
+        // Character appears
+        yield return new WaitForSeconds(1.0f);
+        gameDialogue.AppearCharacter(GameDialogue.Character.Worker);
 
-        gameDialogue.StartDialogue("test");
+        yield return new WaitForSeconds(1.0f);
+        var context = gameDialogue.StartDialogue("take_paper_1");
+        yield return new WaitUntil(() => context.IsCompleted);
+
+        yield return new WaitForSeconds(1.0f);
+        G.ItemsGiver.Give(G.ItemsGiver.CodeList1);
+
+        yield return new WaitUntil(() => G.Pinboard.Pinable != null);
+
+        yield return new WaitForSeconds(1.0f);
+        context = gameDialogue.StartDialogue("take_puncher");
+        yield return new WaitUntil(() => context.IsCompleted);
+        yield return new WaitForSeconds(1.0f);
+
+        G.ItemsGiver.Give(G.ItemsGiver.HoleMaker);
+        yield return new WaitUntil(() => G.Mouse.holding is HoleMaker);
+
         yield return new WaitForSeconds(2.0f);
-        G.CardGiver.GiveCards(3);
+        context = gameDialogue.StartDialogue("task_1");
+        yield return new WaitUntil(() => context.IsCompleted);
+        yield return new WaitForSeconds(1.0f);
+
+        // Character hides
+        gameDialogue.HideCharacter();
+
+        yield return new WaitForSeconds(2.0f);
+        G.CardGiver.GiveCards(1);
+
 
         completed = true;
     }

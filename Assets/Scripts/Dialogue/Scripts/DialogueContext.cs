@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class DialogueContext : MonoBehaviour
 {
     public event System.Action onComplete;
+    public bool IsCompleted { get; private set; }
     public int CurrentCharacterIndex => _writer.CurrentIndex;
     public int CurrentDialogueLine { get; private set; }
     public bool controlledByInput;
@@ -136,6 +137,7 @@ public class DialogueContext : MonoBehaviour
         // No more text blocks in the current dialogue. Invoke the compliting action
 
         onComplete?.Invoke();
+        IsCompleted = true;
 
         OnCompleteDialogue();
 

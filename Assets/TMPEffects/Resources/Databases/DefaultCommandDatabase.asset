@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commands:
     _serializedList:
+    - Key: pause
+      Value: {fileID: 11400000, guid: c2d39f32c73a2794c816b0a38ec47bf1, type: 2}
     - Key: debug
       Value: {fileID: 11400000, guid: 69d14dce9cbfa694dac7b9d68e4ba374, type: 2}
     - Key: show

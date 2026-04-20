@@ -8,7 +8,6 @@ namespace FMODUnity
     {
         public FMOD.GUID Guid;
 
-#if UNITY_EDITOR
 #if FMOD_SERIALIZE_GUID_ONLY
         [NonSerialized]
 #endif
@@ -38,19 +37,5 @@ namespace FMODUnity
 
             return new EventReference { Path = path, Guid = GuidLookupDelegate(path) };
         }
-#else
-        public override string ToString()
-        {
-            return Guid.ToString();
-        }
-
-        public bool IsNull
-        {
-            get
-            {
-                return Guid.IsNull;
-            }
-        }
-#endif
     }
 }

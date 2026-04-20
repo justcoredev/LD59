@@ -13,13 +13,16 @@ public class G
     public static FullscreenOverlay FullscreenOverlay;
 
     public static CardGiver CardGiver;
+    public static CardEater CardEater;
+    public static ItemsGiver ItemsGiver;
+    public static Pinboard Pinboard;
 
     public static FullscreenOverlay Overlay;
 
     public static void Initialize(GameObject gameStateObject)
     {
         GameStateObject = gameStateObject;
-        
+
         Audio = GameStateObject.GetComponent<AudioManager>();
         Pause = GameStateObject.GetComponent<PauseManager>();
         Mouse = GameStateObject.GetComponent<MouseManager>();
@@ -40,6 +43,9 @@ public class G
     public static void OnFirstSceneStart()
     {
         CardGiver = GameObject.FindAnyObjectByType<CardGiver>();
+        CardEater = GameObject.FindAnyObjectByType<CardEater>();
+        ItemsGiver = GameObject.FindAnyObjectByType<ItemsGiver>();
+        Pinboard = GameObject.FindAnyObjectByType<Pinboard>();
 
         var mbs = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
         foreach (var mb in mbs)

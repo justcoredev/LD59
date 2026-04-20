@@ -6,38 +6,52 @@ public class Card : Draggable
     public bool[][] values = new bool[][]{};
     public Hole[] holes;
 
-    public void SetHolesSortingOrder(int order)
+    new void Update()
     {
+        base.Update();
+        Debug.Log("f " + values[0][0]);
+    }
+
+    new void Start()
+    {
+        base.Start();
+
         values = new bool[4][];
         for (int q = 0; q < 4; q++)
             values[q] = new bool[6];
 
-        if (holes == null || holes.Length == 0)
+        holes = GetComponentsInChildren<Hole>();
+
+        var sorted = holes
+            .OrderByDescending(h => h.transform.localPosition.y)
+            .ThenBy(h => h.transform.localPosition.x)
+            .ToArray();
+
+        holes = sorted;
+
+        var orderedHoles = holes
+            .OrderBy(h => h.transform.GetSiblingIndex())
+            .ToArray();
+
+        for (int i = 0; i < orderedHoles.Length; i++)
         {
-            holes = GetComponentsInChildren<Hole>();
+            Debug.Log(i + ";" + orderedHoles[i].gameObject.name);
+            Vector2Int quarterPos = new Vector2Int(
+                i / 6,
+                i % 6
+            );
 
-            var sorted = holes
-                .OrderByDescending(h => h.transform.localPosition.y)
-                .ThenBy(h => h.transform.localPosition.x)
-                .ToArray();
-
-            holes = sorted;
-            
+            orderedHoles[i].quarterPos = quarterPos;
         }
 
+        holes = orderedHoles;
+    }
+
+    public void SetHolesSortingOrder(int order)
+    {
         for(int i = 0; i < holes.Length; i++)
         {
             holes[i].GetComponent<SpriteRenderer>().sortingOrder = order;
-
-            int row = i / 6;   // 0–3
-            int col = i % 6;   // 0–5
-
-            Vector2Int quarterPos = new Vector2Int(
-                col % 3, // 0–2
-                row % 2  // 0–1
-            );
-
-            holes[i].quarterPos = quarterPos;
         }
     }
 }

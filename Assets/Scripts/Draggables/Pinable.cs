@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Pinable : Draggable
 {
-    public static Transform PinboardBound0;
-    public static Transform PinboardBound1;
+    public Sprite bigSprite;
+    public Sprite smallSprite;
+
+    SpriteRenderer sr;
 
     new void Start()
     {
         base.Start();
-
-        PinboardBound0 = GameObject.Find("PinboardBound0").transform;
-        PinboardBound1 = GameObject.Find("PinboardBound1").transform;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     new void Update()
@@ -21,14 +21,33 @@ public class Pinable : Draggable
         {
             if (G.Mouse.holding == this)
             {
-                
+                sr.sprite = smallSprite;
+                if (G.Pinboard.Pinable == this)
+                {
+                    G.Pinboard.Pinable = null;
+                    transform.rotation = Quaternion.identity;
+                }
             }
+            else if (G.Pinboard.Pinable == null)
+            {
+                sr.sprite = bigSprite;
+                transform.position = G.Pinboard.PinPoint.position;
+                transform.rotation = G.Pinboard.PinPoint.rotation;
+                G.Pinboard.Pinable = this;
+                var rb = G.Pinboard.Pinable.GetComponent<Rigidbody2D>();
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+        }
+        else
+        {
+            sr.sprite = smallSprite;
         }
     }
 
     public bool InPinboardBounds()
     {
-        return transform.position.x > PinboardBound0.position.x && transform.position.x < PinboardBound1.position.x &&
-            transform.position.y > PinboardBound0.position.y && transform.position.y < PinboardBound1.position.y;
+        return transform.position.x > G.Pinboard.Bound0.position.x && transform.position.x < G.Pinboard.Bound1.position.x &&
+            transform.position.y > G.Pinboard.Bound0.position.y && transform.position.y < G.Pinboard.Bound1.position.y;
     }
 }
