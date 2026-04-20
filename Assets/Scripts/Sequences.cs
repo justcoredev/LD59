@@ -61,11 +61,19 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
         yield return new WaitUntil(() => context.IsCompleted);
         yield return new WaitForSeconds(1.0f);
 
+        yield return new WaitForSeconds(2.0f);
+        G.CardGiver.GiveCards(1);
+        ///G.CardEater.AddCardRequirement("000001", "110111", "010101", "000010");
+        ///yield return new WaitUntil(() => G.CardEater.AddCardRequirement true);
+
+        yield return new WaitForSeconds(2.0f);
+        context = gameDialogue.StartDialogue("task_2");
+        yield return new WaitUntil(() => context.IsCompleted);
+        yield return new WaitForSeconds(1.0f);
+        
         // Character hides
         gameDialogue.HideCharacter();
 
-        yield return new WaitForSeconds(2.0f);
-        G.CardGiver.GiveCards(1);
 
 
         completed = true;

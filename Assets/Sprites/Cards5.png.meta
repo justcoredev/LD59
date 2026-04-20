@@ -169,13 +169,13 @@ TextureImporter:
       name: CardsVer.5_2
       rect:
         serializedVersion: 2
-        x: 1167
+        x: 1279
         y: 26
-        width: 734
+        width: 622
         height: 757
       alignment: 9
       pivot: {x: 0.5803465, y: 0.48306412}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 7, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
