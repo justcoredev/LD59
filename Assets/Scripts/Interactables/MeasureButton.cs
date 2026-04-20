@@ -11,6 +11,7 @@ public class MeasureButton : MouseInteractable
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        Lock(true);
     }
 
     public void Lock(bool l)
