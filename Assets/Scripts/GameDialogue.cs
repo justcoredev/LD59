@@ -22,7 +22,9 @@ public class GameDialogue : MonoBehaviour
         // https://dmullinsgames.itch.io/sacrifices-must-be-made
         {"take_paper_1", new[]
         {
+            "Good morning",
             "Please, take your todays instructions.",
+            "We changed them for safety",
         }},
         {"take_puncher", new[]
         {
@@ -31,7 +33,16 @@ public class GameDialogue : MonoBehaviour
         {"task_1", new[]
         {
             "Todays task is to punch the <color=red>pressure</color> data into a punch card and send it.",
-            "See you later."
+            "But, since you probably don't know how to use new code",
+            "Let me help you",
+            "Try typing <color=red>45,6</color>",
+        }},
+        {"task_2", new[]
+        {
+            "Good",
+            "That was test data, so don't worry",
+            "Now you can start working.",
+            "Do not screw up"
         }},
     };
 
