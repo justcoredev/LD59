@@ -8,10 +8,12 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     public bool skip;
 
     public GameDialogue gameDialogue;
+    public MeasureButton measureButton;
 
     public void OnFirstSceneStart()
     {
         gameDialogue = FindAnyObjectByType<GameDialogue>();
+        measureButton = FindAnyObjectByType<MeasureButton>();
 
         StartCoroutine(FirstSceneRoutine());
     }
@@ -28,7 +30,8 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     {
         completed = false;
 
-        G.CardEater.AddCardRequirement("000001", "110111", "010101", "000010");
+        Sensor.FindByID("temp").SetDesiredValue(28.5f);
+        G.CardEater.AddCardRequirement("100010", "011101", "000001", "010000");
 
         // Fade
         G.FullscreenOverlay.Fade(true, 0);
@@ -44,6 +47,8 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
         yield return new WaitUntil(() => context.IsCompleted);
 
         yield return new WaitForSeconds(1.0f);
+        G.ItemsGiver.Give(G.ItemsGiver.ManualList);
+        yield return new WaitForSeconds(0.5f);
         G.ItemsGiver.Give(G.ItemsGiver.CodeList1);
 
         yield return new WaitUntil(() => G.Pinboard.Pinable != null);
@@ -66,7 +71,7 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
 
         yield return new WaitForSeconds(2.0f);
         G.CardGiver.GiveCards(1);
-
+        measureButton.Lock(false);
 
         completed = true;
     }

@@ -341,6 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlledByInput: 1
+  showMemo: 0
   voiceClip: {fileID: 0}
   memoText: {fileID: 4131771141388053171}
   memoBack: {fileID: 3654714498748292967}
@@ -488,10 +489,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <PRESS E>
+  m_text: <Press right mouse button>
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4429dd60769be3f4a9128f9fb7367c2d, type: 2}
-  m_sharedMaterial: {fileID: -3765279097383415040, guid: 4429dd60769be3f4a9128f9fb7367c2d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -735,8 +736,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Dialogue Text Text Dialogue TexDialogue Text Dialogue Text Dialogue Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4429dd60769be3f4a9128f9fb7367c2d, type: 2}
-  m_sharedMaterial: {fileID: -3765279097383415040, guid: 4429dd60769be3f4a9128f9fb7367c2d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
