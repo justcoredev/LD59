@@ -34,6 +34,7 @@ public class HoleMaker : Draggable
         tween = movingPartTransform.DOLocalMoveY(0.64f, punchCooldown).SetEase(Ease.OutQuad);
         DOVirtual.DelayedCall(punchCooldown * 0.9f, () => canPunch = true);
         canPunch = false;
+        G.Audio.PlayOneShot(G.Audio.Events.Puncher);
     }
 
     void OnDrawGizmos()

@@ -23,6 +23,7 @@ public class CardEater : MouseInteractable
             CheckRequirements(card);
             // EAT THE CARD
             Destroy(card.gameObject);
+            G.Audio.PlayOneShot(G.Audio.Events.BigButton);
         }
     }
 

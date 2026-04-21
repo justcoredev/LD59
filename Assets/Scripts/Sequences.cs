@@ -1,6 +1,8 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
 {
@@ -19,6 +21,8 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
         buttonSend = FindAnyObjectByType<ButtonSend>();
 
         StartCoroutine(FirstSceneRoutine());
+
+        //WeirdFilter(false);
     }
 
     IEnumerator FirstSceneRoutine()
@@ -135,7 +139,8 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     IEnumerator Level2()
     {
         completed = false;
-
+        ResetShit();
+        
         Sensor.FindByID("pressure").SetDesiredValue(10.2f);
         Sensor.FindByID("temp").SetDesiredValue(32.4f);
 
@@ -188,11 +193,14 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     {
         completed = false;
 
+        G.ItemsGiver.ListLevel2.gameObject.SetActive(false);
+        ResetShit();
+
         Sensor.FindByID("pressure").SetDesiredValue(0.0f);
         Sensor.FindByID("temp").SetDesiredValue(0.0f);
 
         // Cultist's card
-        G.CardEater.AddCardRequirement("101010", "101010", "010101", "010101");
+        G.CardEater.AddCardRequirement("101010", "101110", "011101", "010101");
 
         // Fade
         yield return new WaitForSeconds(2.0f);
@@ -235,6 +243,9 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     IEnumerator Level4()
     {
         completed = false;
+
+        G.ItemsGiver.ListLevel3.gameObject.SetActive(false);
+        ResetShit();
 
         Sensor.FindByID("pressure").SetDesiredValue(0.0f);
         Sensor.FindByID("temp").SetDesiredValue(43.9f);
@@ -286,9 +297,16 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
     IEnumerator Level5()
     {
         completed = false;
+        ResetShit();
+
+        GameObject.Find("Morning").transform.localScale *= 3;
+
+        //WeirdFilter(true);
 
         Sensor.FindByID("pressure").SetDesiredValue(0.0f);
         Sensor.FindByID("temp").SetDesiredValue(79.9f);
+
+        G.ItemsGiver.ListLevel4.gameObject.SetActive(false);
 
         // Temperature
         G.CardEater.AddCardRequirement("010101", "000001", "111111", "111111");
@@ -308,8 +326,19 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
 
         yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(G.FullscreenOverlay.Fade(true, 2.0f));
+        yield return new WaitForSeconds(2.0f);
+        Application.Quit();
 
         completed = true;
+    }
+
+    public void ResetShit()
+    {
+        buttonSend.Sent = false;
+        Sensor.FindByID("pressure").activated = false;
+        Sensor.FindByID("temp").activated = false;
+        if (FindAnyObjectByType<MonitorMoveButton>().isMoved) FindAnyObjectByType<MonitorMoveButton>().MoveOut(false);
+        if (!G.Pinboard.Pinable.gameObject.activeSelf) G.Pinboard.Pinable = null;
     }
 
 #if UNITY_EDITOR
@@ -321,4 +350,22 @@ public class Sequences : MonoBehaviour, IOnFirstSceneStartListener
         }
     }
 #endif
+
+    public void WeirdFilter(bool b)
+    {
+        Volume volume = FindAnyObjectByType<Volume>();
+        ColorAdjustments colorAdj;
+        volume.profile.TryGet<ColorAdjustments>(out colorAdj);
+
+        if (b)
+        {
+            colorAdj.postExposure.value = 1.6f;
+            colorAdj.contrast.value = 40;
+            colorAdj.colorFilter.value = new Color(161 / 255.0f, 136.0f / 255.0f, 112 / 255.0f);
+        }
+        else
+        {
+            
+        }
+    }
 }

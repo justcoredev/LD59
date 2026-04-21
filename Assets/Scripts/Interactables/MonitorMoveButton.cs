@@ -15,19 +15,14 @@ public class MonitorMoveButton : MouseInteractable
 
     public override void MouseDown()
     {
-        Vector2 dest = default;
+        MoveOut(!isMoved);
+        G.Audio.PlayOneShot(G.Audio.Events.BigButton);
+    }
 
-        if (isMoved)
-        {
-            isMoved = false;
-            dest = startMonitorPos;
-        }
-        else
-        {
-            isMoved = true;
-            dest = movedPoint.position;
-        }
-
+    public void MoveOut(bool b)
+    {
+        isMoved = b;
+        Vector2 dest = b ? movedPoint.position : startMonitorPos;
         tween?.Kill();
         tween = transform.parent.DOMoveX(dest.x, 1.5f * 0.33f).SetEase(Ease.OutQuad);
     }

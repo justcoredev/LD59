@@ -115,6 +115,8 @@ public class Draggable : MouseInteractable, IOnCleanupListener
 
         localClickPoint = transform.InverseTransformPoint(worldMousePosition);
         joint.anchor = localClickPoint;
+
+        G.Audio.PlayOneShot(G.Audio.Events.Paper);
     }
 
     public override void MouseUp()

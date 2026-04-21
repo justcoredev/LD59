@@ -42,14 +42,14 @@ public class GameDialogue : MonoBehaviour
         {"hi_now_pressure_too", new[]
         { // TODO polish: "i got you a present (pot with a sprout)" or smth wholesome like that.
             "Good morning again.",
-            "Today they want you to send a card with <color=#0000cc>pressure</color> along with two cards of <color=#0000cc>temperature</color>.",
+            "Today they want you to send a card with <color=#0000ee>pressure</color> along with two cards of <color=red>temperature</color>.",
 
         }},
         {"see_you_later", new[]
         {
             "See you later.",
         }},
-        {"cultist_into", new[]
+        {"cultist_intro", new[]
         {
             "Greetings to you.",
             "Something terrible is in making.",

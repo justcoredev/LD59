@@ -49,6 +49,7 @@ public class Pinable : Draggable
         var rb = G.Pinboard.Pinable.GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
+        G.Audio.PlayOneShot(G.Audio.Events.Paper);
     }
 
     public bool InPinboardBounds()

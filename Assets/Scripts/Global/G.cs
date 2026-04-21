@@ -51,5 +51,7 @@ public class G
         foreach (var mb in mbs)
             if (mb is IOnFirstSceneStartListener listener)
                 listener.OnFirstSceneStart();
+        
+        G.Audio.PlayLooped(G.Audio.Events.Searching);
     }
 }

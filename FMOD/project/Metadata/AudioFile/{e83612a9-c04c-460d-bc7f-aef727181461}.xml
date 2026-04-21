@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{e83612a9-c04c-460d-bc7f-aef727181461}">
+		<property name="assetPath">
+			<value>Puncher.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.60782312925170068</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{34c525f4-cedb-49df-8f66-d49e7cb61b97}</destination>
+		</relationship>
+	</object>
+</objects>

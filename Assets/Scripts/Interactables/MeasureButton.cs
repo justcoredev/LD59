@@ -39,6 +39,7 @@ public class MeasureButton : MouseInteractable
         Sensor.FindByID("pressure").Activate();
         wasPressedOnce = true;
         // TODO: play sound
+        G.Audio.PlayOneShot(G.Audio.Events.BigButton);
     }
 
     public override void MouseDown()
